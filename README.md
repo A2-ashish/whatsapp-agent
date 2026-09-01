@@ -5,7 +5,7 @@ An autonomous, agentic WhatsApp commerce platform designed for small retailers a
 ## 🌟 Key Features
 
 ### 🤖 Autonomous WhatsApp Agent
-- **LLM-Powered Intelligence**: Driven by the Gemini 2.0 Flash model.
+- **LLM-Powered Intelligence**: Driven by the Gemini 2.5 Flash model.
 - **Real-Time Data Integration**: Searches live inventory, calculates dynamic bulk discount pricing, and pulls customer history.
 - **Safety First (Policy Engine)**: Server-side guardrails prevent the LLM from hallucinating discounts, exceeding max order limits, or selling out-of-stock items.
 - **Idempotency & Concurrency**: Uses PostgreSQL advisory locks and idempotency keys to handle rapid or duplicate webhook triggers gracefully.
