@@ -4,7 +4,7 @@ Run with: uv run python -m app.seed
 """
 
 import asyncio
-from passlib.hash import bcrypt
+import bcrypt
 from app.db.database import async_session_factory, engine
 from app.db.models import Base, Seller, Product, DiscountPolicy
 from app.config import get_settings
@@ -30,7 +30,7 @@ async def seed():
             business_name=settings.DEFAULT_BUSINESS_NAME,
             product_category=settings.DEFAULT_PRODUCT_CATEGORY,
             email="admin@store.com",
-            password_hash=bcrypt.hash("admin123"),
+            password_hash=bcrypt.hashpw("admin123".encode(), bcrypt.gensalt()).decode(),
             auto_approve_order_limit=settings.DEFAULT_AUTO_APPROVE_LIMIT,
             phone_number="+91XXXXXXXXXX",
             wa_phone_number_id=settings.WA_PHONE_NUMBER_ID or "",

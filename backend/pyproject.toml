@@ -7,6 +7,7 @@ requires-python = ">=3.14"
 dependencies = [
     "alembic",
     "asyncpg",
+    "bcrypt>=5.0.0",
     "fastapi",
     "google-genai",
     "httpx",

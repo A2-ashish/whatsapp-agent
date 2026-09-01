@@ -47,19 +47,17 @@ cp .env.example .env
 # Edit .env and add your GEMINI_API_KEY
 ```
 
-### 3. Start the Database & Backend
+### 3. Start the Backend & Database (via Docker)
+To avoid local port conflicts, the entire backend (API and Database) runs seamlessly inside Docker.
 ```bash
-# 1. Start PostgreSQL
-docker compose up -d postgres
+# 1. Build and start the backend and PostgreSQL database
+docker compose up -d --build
 
 # 2. Seed the database with a test admin and sample products
-cd backend
-uv run python -m app.seed
-
-# 3. Start the FastAPI server (auto-reloads on code changes)
-uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+# This command runs the seed script inside the backend container
+docker compose exec backend uv run python -m app.seed
 ```
-*The backend API will be running at `http://localhost:8000`.*
+*The backend API will be running at `http://localhost:8001`.*
 
 ### 4. Start the React Dashboard
 Open a new terminal window:
