@@ -1,0 +1,20 @@
+[project]
+name = "whatsapp-commerce"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic",
+    "asyncpg",
+    "fastapi",
+    "google-genai",
+    "httpx",
+    "passlib[bcrypt]",
+    "pydantic-settings",
+    "python-jose[cryptography]",
+    "python-multipart",
+    "sqlalchemy[asyncio]",
+    "sse-starlette",
+    "uvicorn[standard]",
+]

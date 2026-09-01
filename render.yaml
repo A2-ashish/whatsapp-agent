@@ -1,0 +1,58 @@
+# Render Blueprint — Infrastructure as Code
+# Deploy with: connect your GitHub repo in Render dashboard
+
+databases:
+  - name: whatsapp-commerce-db
+    plan: free
+    databaseName: whatsapp_commerce
+    user: postgres
+
+services:
+  - type: web
+    name: whatsapp-commerce-api
+    plan: free
+    runtime: python
+    buildCommand: |
+      pip install uv
+      uv sync --frozen --no-dev
+    startCommand: uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: whatsapp-commerce-db
+          property: connectionString
+        # Note: Render gives postgresql://, we need postgresql+asyncpg://
+        # Handle this in config.py or use a build-time transform
+      - key: GEMINI_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: WA_PHONE_NUMBER_ID
+        sync: false
+      - key: WA_ACCESS_TOKEN
+        sync: false
+      - key: WA_VERIFY_TOKEN
+        sync: false
+      - key: WA_APP_SECRET
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+    healthCheckPath: /health
+
+  - type: web
+    name: whatsapp-commerce-dashboard
+    plan: static
+    buildCommand: npm run build
+    staticPublishPath: dist
+    rootDir: dashboard
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
