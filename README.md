@@ -55,6 +55,10 @@ Double-click `start.bat` or run:
 ```bash
 .\start.bat
 ```
+*(The terminal window will automatically hide itself to keep your taskbar clean while the platform runs in the background).*
+
+**To Stop (Windows):**
+Because `start.bat` runs in the background, double-click `stop.bat` to safely shut down the Docker containers and background React server.
 
 **On Mac/Linux:**
 ```bash

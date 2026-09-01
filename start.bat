@@ -1,4 +1,12 @@
 @echo off
+if "%~1"=="hidden" goto :start
+
+echo Starting platform in background... (Terminal will hide in 2 seconds)
+timeout /t 2 >nul
+powershell -WindowStyle Hidden -Command "Start-Process -FilePath '%~f0' -ArgumentList 'hidden' -WindowStyle Hidden"
+exit /b
+
+:start
 echo Starting WhatsApp Commerce Platform...
 
 echo.
@@ -14,5 +22,4 @@ echo.
 echo [3/3] Starting the React Dashboard...
 cd dashboard
 call npm install
-echo Dashboard starting... (Press CTRL+C to stop)
 npm run dev
