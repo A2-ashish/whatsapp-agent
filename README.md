@@ -47,25 +47,28 @@ cp .env.example .env
 # Edit .env and add your GEMINI_API_KEY
 ```
 
-### 3. Start the Backend & Database (via Docker)
-To avoid local port conflicts, the entire backend (API and Database) runs seamlessly inside Docker.
-```bash
-# 1. Build and start the backend and PostgreSQL database
-docker compose up -d --build
+### 3. Start the Platform
+You can start the entire platform (Backend, Database, and Frontend Dashboard) with a single command!
 
-# 2. Seed the database with a test admin and sample products
-# This command runs the seed script inside the backend container
-docker compose exec backend uv run python -m app.seed
-```
-*The backend API will be running at `http://localhost:8001`.*
-
-### 4. Start the React Dashboard
-Open a new terminal window:
+**On Windows:**
+Double-click `start.bat` or run:
 ```bash
-cd dashboard
-npm install
-npm run dev
+.\start.bat
 ```
+
+**On Mac/Linux:**
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+This script will automatically:
+1. Build and start the backend and PostgreSQL database in Docker.
+2. Seed the database with an admin account and sample products.
+3. Start the React dashboard.
+
+*The React Dashboard will open at `http://localhost:5173`.*
+*The Backend API will run at `http://localhost:8001`.*
 *The dashboard will be running at `http://localhost:5173`.*
 **Login Credentials:**
 - Email: `admin@store.com`
